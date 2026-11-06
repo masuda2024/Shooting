@@ -11,9 +11,7 @@ public:
 		kFadeOut, // フェードアウト
 	};
 
-	// 終了フラグ
-	bool finishedTU_ = false;
-	// デスフラグのgetter
+	// getter
 	bool IsFinishedTU() const { return finishedTU_; }
 
 	void Initialize();
@@ -22,43 +20,47 @@ public:
 
 	// デストラクタ
 	~Tutorial();
-	// void ChangeScene();
+	
+	
+private:
+	
+	// 3Dモデルデータ
+	KamataEngine::Model* model_ = nullptr;
+	
+	// カメラ
+	KamataEngine::Camera camera_;
+	
+	// ワールドトランスフォーム
+	KamataEngine::WorldTransform worldTransform_;
+	KamataEngine::WorldTransform worldTransformPlayer_;
 	std::vector<std::vector<KamataEngine::WorldTransform*>> worldTransformBlocks_; // stdでエラーが起きたらKamataEngine::をいれる
 
+	// 終了フラグ
+	bool finishedTU_ = false;
+
+	// フェード
+	Fade* fade_ = nullptr;
+	
+	// 現在のフェーズ
+	Phase phase_ = Phase::kFadeIn;
+	
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0;
-	
-	
+
 	KamataEngine::Vector2 tutorialPos_ = {0, 0};
 	KamataEngine::Vector2 tutorialPos_2 = {0, 0};
 	KamataEngine::Vector2 tutorialPos_3 = {0, 0};
 
-	
-	enum class Pages 
+	enum class Pages
 	{
 		p1,
 		p2,
 	};
 	Pages page_ = Pages ::p1;
 
-private:
-	// 3Dモデルデータ
-	KamataEngine::Model* model_ = nullptr;
-	// モデルプレイヤー
-	// KamataEngine::Model* modelPlayer_ = nullptr;
-	// カメラ
-	KamataEngine::Camera camera_;
-	// ワールドトランスフォーム
-	KamataEngine::WorldTransform worldTransform_;
-	KamataEngine::WorldTransform worldTransformPlayer_;
-
-	// フェード
-	Fade* fade_ = nullptr;
-	// 現在のフェーズ
-	Phase phase_ = Phase::kFadeIn;
-
 
 	/**/
+	
 	// Skip
 	uint32_t Skip_Handle_ = 0;
 	KamataEngine::Sprite* Skip_Sprite_ = nullptr;
@@ -103,5 +105,4 @@ private:
 	
 	
 	uint32_t Botan_ = 0;
-	
 };

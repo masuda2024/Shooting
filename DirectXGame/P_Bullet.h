@@ -16,27 +16,18 @@ public:
 
 	#pragma endregion
 
-	KamataEngine::Model* model_P_Bullet_ = nullptr;
-	// ワールド変換データ
-	KamataEngine::WorldTransform worldTransform_;
+	
 
 
 
-
-	// 速度
-	KamataEngine::Vector3 PB_velocity_;
+	
 	const KamataEngine::WorldTransform& GetWorldTransform() const { return worldTransform_; }
 
 	
 
 	#pragma region 状態
 
-	// 寿命
-	static const int32_t kLifeTime = 30 * 5;
-	// デスタイマー
-	int32_t deathTimer_ = kLifeTime;
-	// デスフラグ
-	bool isDead_pb_ = false;
+	
 	bool IsDead_PB() const { return isDead_pb_; }
 
 	#pragma endregion
@@ -72,15 +63,25 @@ private:
 
 	// カメラ
 	KamataEngine::Camera* camera_;
-
-	KamataEngine::Vector3 velocity_ = {};
-
-
-
 	
-
-
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0;
+	
+	KamataEngine::Vector3 velocity_ = {};
+	// 速度
+	KamataEngine::Vector3 PB_velocity_;
+
+	KamataEngine::Model* model_P_Bullet_ = nullptr;
+	// ワールド変換データ
+	KamataEngine::WorldTransform worldTransform_;
+
+	// 寿命
+	static const int32_t kLifeTime = 30 * 5;
+	// デスタイマー
+	int32_t deathTimer_ = kLifeTime;
+	// デスフラグ
+	bool isDead_pb_ = false;
+
+	
 
 };

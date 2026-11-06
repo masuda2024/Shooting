@@ -35,42 +35,26 @@ public:
 
 	#pragma region ゲームの状態管理
 
-	bool gameActive = true;
-
-
 	// 終了フラグ
-	
 	// デス(オーバー)フラグのgetter
-	bool finishedGAME_ = false;
 	bool IsFinishedGAME() const { return finishedGAME_; } // ゲームオーバー
 
 	// 敵を倒した場合の(クリア)フラグ
-	bool finishedGAME2_ = false;
 	bool IsFinishedGAME2() const { return finishedGAME2_; } ////ゲームクリア
 
 	// タイトルに戻る
-	bool finishedGAME3_ = false;
 	bool IsFinishedGAME3() const { return finishedGAME3_; } ////ゲームクリア
 
 
 	#pragma endregion
-
 	
 	// エフェクト生成
 	void EffectBorn(KamataEngine::Vector3 position);
 
-
-	
-
 	// 衝突判定
 	void CheckAllCollisions();
 
-
-	//デバッグカメラ
-	bool isDebugCameraActive_ = false;
-	KamataEngine::DebugCamera* debugCamera_ = nullptr;
-
-
+	//スコアを受け取る
 	uint32_t GetScore() const;
 
 private:
@@ -78,19 +62,27 @@ private:
 	
 	// ワールドトランスフォーム
 	KamataEngine::WorldTransform worldTransform_;
+	
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0;
+	
 	// カメラ
 	KamataEngine::Camera camera_;
+	KamataEngine::DebugCamera* debugCamera_ = nullptr;
 	
-
-
+	//デバッグカメラ
+	bool isDebugCameraActive_ = false;
+	
 	// テクスチャハンドル
 	uint32_t textureHandleStage_ = 0;
+	
 	// クラス
 	Stage* stage_ = nullptr;
-
-
+	
+	bool gameActive = true;
+	bool finishedGAME_ = false;
+	bool finishedGAME2_ = false;
+	bool finishedGAME3_ = false;
 
 
 	#pragma region エフェクト
@@ -145,9 +137,10 @@ private:
 	std::list<Enemy*> enemies_;
 	// 3Dモデル
 	KamataEngine::Model* modelEnemy_ = nullptr;
-
+	//敵の数
 	int32_t enemyCount = 10;
-    #pragma endregion
+    
+	#pragma endregion
 
 
 

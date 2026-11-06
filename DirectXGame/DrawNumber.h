@@ -24,10 +24,4 @@ private:
 	KamataEngine::Sprite* sprite_[10] = {};
 	// サイズ
 	KamataEngine::Vector2 size = {32.0f, 64.0f};
-	
-	
-	
-
-
-
 };

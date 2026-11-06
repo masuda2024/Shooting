@@ -5,19 +5,14 @@
 class Clear
 {
 public:
-	enum class Phase 
-	{
-		kFadeIn,  // フェードイン
-		kMain,    // メイン部
-		kFadeOut, // フェードアウト
-	};
+	
 
-	// 終了フラグ
-	bool finishedC_ = false;
+	
+	
 	bool IsFinishedC() const { return finishedC_; }
 
 	// リトライ
-	bool finishedC_2 = false;
+	
 	bool IsFinishedC2() const { return finishedC_2; }
 
 	void Initialize();
@@ -26,29 +21,30 @@ public:
 
 	// デストラクタ
 	~Clear();
-	// void ChangeScene();
+	
+	void SetScore(uint32_t score);
+
+private:
+	
+	// 3Dモデルデータ
+	KamataEngine::Model* model_ = nullptr;
+	
+	// カメラ
+	KamataEngine::Camera camera_;
+	
+	// ワールドトランスフォーム
+	KamataEngine::WorldTransform worldTransform_;
 	std::vector<std::vector<KamataEngine::WorldTransform*>> worldTransformBlocks_; // stdでエラーが起きたらKamataEngine::をいれる
+
+	enum class Phase 
+	{
+		kFadeIn,  // フェードイン
+		kMain,    // メイン部
+		kFadeOut, // フェードアウト
+	};
 
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0;
-	// スプライト
-
-	// マップチップフィールド
-	// MapChipField* mapChipField_;
-
-
-	void SetScore(uint32_t score);
-
-
-private:
-	// 3Dモデルデータ
-	KamataEngine::Model* model_ = nullptr;
-	// カメラ
-	KamataEngine::Camera camera_;
-	// ワールドトランスフォーム
-	KamataEngine::WorldTransform worldTransform_;
-
-
 
 	uint32_t Back_H = 0;
 	KamataEngine::Sprite* Back_S = nullptr;
@@ -78,17 +74,17 @@ private:
 	uint32_t textureHandleNumber_ = 0;
 	KamataEngine::Sprite* Number_S_ = nullptr;
 	ClearNumber* clearNumber_ = nullptr;
-	//int gameScore_ = 0;
 	uint32_t score_ = 0;
-
-
+	
+	// 終了フラグ
+	bool finishedC_ = false;
+	bool finishedC_2 = false;
 
 	// フェード
 	Fade* fade_ = nullptr;
+	
 	// 現在のフェーズ
 	Phase phase_ = Phase::kFadeIn;
 
 	uint32_t Botan_ = 0;
-
-	
 };

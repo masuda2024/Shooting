@@ -10,9 +10,13 @@ class Enemy
 {
 public:
 	void Initialize(KamataEngine::Model* model, KamataEngine::Camera* camera, KamataEngine::Vector3& position);
+	
 	void Update();
+	
 	void Draw();
+	
 	~Enemy();
+	
 	// ワールド座標を取得
 	KamataEngine::Vector3 GetWorldPosition();
 	const KamataEngine::Vector3& GetPosition() const { return worldTransform_.translation_; }
@@ -41,8 +45,7 @@ public:
 
     #pragma endregion
 
-	uint32_t respawnTimer = 120;
-	bool E_Dead_ = false;
+	
 	bool IsE_Dead() const { return E_Dead_; }
 
 
@@ -54,5 +57,8 @@ private:
 	KamataEngine::Camera* camera_;
 	// ワールド変換データ
 	KamataEngine::WorldTransform worldTransform_;
-
+	
+	uint32_t respawnTimer = 120;
+	
+	bool E_Dead_ = false;
 };

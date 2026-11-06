@@ -13,17 +13,10 @@ public:
 	};
 
 	// 終了フラグ
-	bool finishedTitle_ = false;
 	bool IsFinishedT() const { return finishedTitle_; }
-
-	//ゲーム終了フラグ
-	bool finishedGame_ = false;
+	
+	//ゲーム終了フラグ	
 	bool IsFinishedGame() const { return finishedGame_; }
-
-
-
-
-
 
 
 	void Initialize();
@@ -35,10 +28,7 @@ public:
 	// void ChangeScene();
 	std::vector<std::vector<KamataEngine::WorldTransform*>> worldTransformBlocks_; // stdでエラーが起きたらKamataEngine::をいれる
 
-	// テクスチャハンドル
-	uint32_t textureHandle_ = 0;
-	// スプライト
-	KamataEngine::Sprite* titleSprite_ = nullptr;
+	
 
 private:
 	// カメラ
@@ -46,7 +36,10 @@ private:
 	// ワールドトランスフォーム
 	KamataEngine::WorldTransform worldTransform_;
 
-
+	// テクスチャハンドル
+	uint32_t textureHandle_ = 0;
+	// スプライト
+	KamataEngine::Sprite* titleSprite_ = nullptr;
 
 
 	uint32_t CreditsHandle_ = 0;
@@ -97,7 +90,8 @@ private:
 
 
 
-
+	bool finishedTitle_ = false;
+	bool finishedGame_ = false;
 
 
 	// フェード
