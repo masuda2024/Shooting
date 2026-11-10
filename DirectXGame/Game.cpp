@@ -568,6 +568,7 @@ void Game::Draw()
 
 void Game::CheckAllCollisions()
 { 
+
 	const std::list<P_Bullet*>& playerBullets = player_->GetBullets();
 	const std::list<AllRound*>& allRounds = player_->GetRound();
 

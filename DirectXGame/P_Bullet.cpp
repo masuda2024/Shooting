@@ -83,8 +83,8 @@ AABB P_Bullet::GetAABB()
 // 弾と敵の衝突応答
 void P_Bullet::OnCollition(const Enemy* enemy)
 {
-    (void)enemy;
-    isDead_pb_ = true;
+	(void)enemy;
+	isDead_pb_ = true;
 }
 
 

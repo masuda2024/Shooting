@@ -25,19 +25,22 @@ public:
 
 	// デストラクタ
 	~Title();
-	// void ChangeScene();
-	std::vector<std::vector<KamataEngine::WorldTransform*>> worldTransformBlocks_; // stdでエラーが起きたらKamataEngine::をいれる
-
+	
 	
 
 private:
 	// カメラ
 	KamataEngine::Camera camera_;
+	
 	// ワールドトランスフォーム
 	KamataEngine::WorldTransform worldTransform_;
+	
+	// void ChangeScene();
+	std::vector<std::vector<KamataEngine::WorldTransform*>> worldTransformBlocks_; // stdでエラーが起きたらKamataEngine::をいれる
 
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0;
+	
 	// スプライト
 	KamataEngine::Sprite* titleSprite_ = nullptr;
 

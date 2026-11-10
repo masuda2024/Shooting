@@ -4,20 +4,20 @@
 #include<array>
 #define _USE_MATH_DEFINES
 #include<math.h>
-
+#include "Bullet.h"
 
 class Enemy;
-class AllRound
+class AllRound : public Bullet
 {
 public:
 	void Initialize(KamataEngine::Model* model,  KamataEngine::Vector3 position);
 
-	void Update();
+	void Update() override;
 
-	void Draw(const KamataEngine::Camera& camera);
+	void Draw(const KamataEngine::Camera& camera) override;
 
-	bool IsDead_AR() const { return isDead_ar_; }
-
+	//bool IsDead_AR() const { return isDead_ar_; }
+	bool IsDead() const override { return isDead_ar_; }
 	#pragma region 衝突判定の準備
 
 	// 当たり判定サイズ
@@ -33,9 +33,11 @@ public:
 
 	// AABBを取得
 	AABB2 GetAABB2(int index);
+
+
 	// 衝突応答
 	void OnCollition2(const Enemy* enemy);
-
+	
     #pragma endregion
 
 

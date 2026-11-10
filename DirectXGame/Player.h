@@ -36,6 +36,11 @@ public:
 	// 範囲攻撃のリストを取得（読み取り専用）
 	const std::list<AllRound*>& GetRound() const { return allRounds_; }
 
+	const std::list<Bullet*>& GetBullets2() const { return bullets_; }
+
+
+
+
 	// 当たり判定サイズ
 	static inline const float kWidth = 1.5f;
 	static inline const float kHeight = 1.0f;
@@ -62,11 +67,19 @@ private:
 	// テクスチャ
 	uint32_t textureHandle_ = 0;
 
+
+	#pragma region 弾
 	// 通常弾
 	std::list<P_Bullet*> p_bullets_;
 
 	// 範囲攻撃
 	std::list<AllRound*> allRounds_;
+
+
+	std::list<Bullet*> bullets_;
+
+	#pragma endregion
+
 
 	// 発射タイマー
 	int32_t fireTimer_ = 0;
