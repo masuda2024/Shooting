@@ -1,18 +1,18 @@
 #pragma once
 #include "KamataEngine.h"
 #include "MyMath.h"
-#include "Bullet.h"
+
 
 class Enemy;
-class P_Bullet : public Bullet
+class P_Bullet
 {
 public:
 
 	#pragma region 基本構成
 
 	void Initialize(KamataEngine::Model* model, const KamataEngine::Vector3& position, const KamataEngine::Vector3& velocity);
-	void Update() override;
-	void Draw(const KamataEngine::Camera& camera) override;
+	void Update() ;
+	void Draw(const KamataEngine::Camera& camera);
 
 	#pragma endregion
 
@@ -28,8 +28,8 @@ public:
 	#pragma region 状態
 
 	
-	//bool IsDead_PB() const { return isDead_pb_; }
-	bool IsDead() const override { return isDead_pb_; }
+	bool IsDead_PB() const { return isDead_pb_; }
+	
 	#pragma endregion
 
 	#pragma region 衝突判定の準備

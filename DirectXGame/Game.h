@@ -24,13 +24,15 @@
 
 #include"DrawNumber.h"
 
-class Game 
+#include "BaseScene.h"
+
+class Game : public BaseScene
 {
 public:
 
 	void Initialize();
-	void Update();
-	void Draw();
+	void Update() override;
+	void Draw() override;
 	~Game();
 
 	#pragma region ゲームの状態管理

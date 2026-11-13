@@ -36,8 +36,7 @@ public:
 	// 範囲攻撃のリストを取得（読み取り専用）
 	const std::list<AllRound*>& GetRound() const { return allRounds_; }
 
-	const std::list<Bullet*>& GetBullets2() const { return bullets_; }
-
+	
 
 
 
@@ -74,9 +73,6 @@ private:
 
 	// 範囲攻撃
 	std::list<AllRound*> allRounds_;
-
-
-	std::list<Bullet*> bullets_;
 
 	#pragma endregion
 

@@ -1,7 +1,8 @@
 #pragma once
 #include "Fade.h"
 #include "KamataEngine.h"
-class Over 
+#include "BaseScene.h"
+class Over : public BaseScene
 {
 public:
 
@@ -12,8 +13,8 @@ public:
 	bool IsFinishedO2() const { return finishedO_2; }
 
 	void Initialize();
-	void Update();
-	void Draw();
+	void Update() override;
+	void Draw() override;
 
 	// デストラクタ
 	~Over();

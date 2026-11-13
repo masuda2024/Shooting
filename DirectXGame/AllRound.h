@@ -4,20 +4,20 @@
 #include<array>
 #define _USE_MATH_DEFINES
 #include<math.h>
-#include "Bullet.h"
+
 
 class Enemy;
-class AllRound : public Bullet
+class AllRound
 {
 public:
 	void Initialize(KamataEngine::Model* model,  KamataEngine::Vector3 position);
 
-	void Update() override;
+	void Update();
 
-	void Draw(const KamataEngine::Camera& camera) override;
+	void Draw(const KamataEngine::Camera& camera);
 
-	//bool IsDead_AR() const { return isDead_ar_; }
-	bool IsDead() const override { return isDead_ar_; }
+	bool IsDead_AR() const { return isDead_ar_; }
+	
 	#pragma region 衝突判定の準備
 
 	// 当たり判定サイズ

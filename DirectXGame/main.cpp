@@ -2,15 +2,18 @@
 #include "KamataEngine.h"
 using namespace KamataEngine;
 
+
+
+#pragma region シーン
+
 #include "Title.h"
 #include "Tutorial.h"
 #include"Game.h"
 #include "Clear.h"
 #include "Over.h"
+#include "BaseScene.h"
 
 
-
-#pragma region シーン
 
 enum class Scene 
 {
@@ -22,26 +25,13 @@ enum class Scene
 	kOver,
 };
 Scene scene = Scene::kUnknown;
+BaseScene* currentScene = nullptr;
+
+
+
 void ChangeScene();
 void UpdateScene();
 void DrawScene();
-
-
-// タイトルシーンの生成
-Title* title = nullptr;
-
-// チュートリアルシーンの生成
-Tutorial* tutorial = nullptr;
-
-// ゲームシーンのインスタンス生成
-Game* game = nullptr;
-
-
-// ゲームクリアシーンの生成
-Clear* clear = nullptr;
-
-// ゲームオーバーシーンの生成
-Over* over = nullptr;
 
 
 #pragma endregion
@@ -61,31 +51,10 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
 	// 最初のシーンの初期化
 	scene = Scene::kTitle;
 
+	Title* newScene = new Title();
+	newScene->Initialize();
 
-	// タイトルのインスタンス生成
-	title = new Title;
-	// タイトルの初期化
-	title->Initialize();
-
-
-	tutorial = new Tutorial();
-	tutorial->Initialize();
-
-
-	//ゲームのインスタンス生成
-	//Game* game = new Game();
-	game = new Game();
-	// ゲームの初期化
-	game->Initialize();
-
-	
-	clear = new Clear;
-	clear->Initialize();
-
-	over = new Over;
-	over->Initialize();
-	
-
+	currentScene = newScene;
 	#pragma endregion
 
 
@@ -121,7 +90,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
 
 
 		//ゲームを終了してウインドウを閉じる
-		if (title && title->IsFinishedGame())
+		if (scene == Scene::kTitle && static_cast<Title*>(currentScene)->IsFinishedGame())
 		{
 			break;
 		}
@@ -131,13 +100,9 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
 
 	#pragma region 解放
 
-	delete title;
-	title = nullptr;
-	delete tutorial;
-	delete game;
-	delete clear;
-	delete over;
-	game = nullptr;
+	// シーンの解放
+	delete currentScene;
+	currentScene = nullptr;
 
 	#pragma endregion
 
@@ -151,253 +116,150 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
 
 void UpdateScene()
 {
-
-	switch (scene)
+	if (currentScene)
 	{
-	case Scene::kTitle:
-		title->Update();
-		break;
-
-	case Scene::kTutorial:
-		tutorial->Update();
-		break;
-		
-	case Scene::kGame:
-		game->Update();
-
-		break;
-
-	case Scene::kClear:
-		clear->Update();
-		break;
-
-	case Scene::kOver:
-		over->Update();
-		break;
-		
+		currentScene->Update();
 	}
 }
 
 
 void ChangeScene()
 {
-	switch (scene) 
+	switch (scene)
 	{
 	case Scene::kTitle:
 
-		if (title->IsFinishedT())
+		if (static_cast<Title*>(currentScene)->IsFinishedT()) 
 		{
+			delete currentScene;
+			currentScene = nullptr;
 
-			// シーンの変更
 			scene = Scene::kTutorial;
-			// 新シーンの生成と初期化
-			tutorial = new Tutorial();
-			tutorial->Initialize();
+
+			Tutorial* newScene = new Tutorial();
+			newScene->Initialize();
+
+			currentScene = newScene;
 		}
 
 		break;
+
 	case Scene::kTutorial:
-		if (tutorial->IsFinishedTU())
-		{
 
-			// 音声停止
-			//Audio::GetInstance()->StopWave(T_Voice_);
+		if (static_cast<Tutorial*>(currentScene)->IsFinishedTU()) {
+			delete currentScene;
+			currentScene = nullptr;
 
-			// シーンの変更
 			scene = Scene::kGame;
-			// 旧シーンの解放
-			delete tutorial;
-			tutorial = nullptr;
-			title = nullptr;
-			// 新シーンの生成と初期化
-			game = new Game();
-			game->Initialize();
 
-			// ゲームシーンの音楽を再生
-			//G_Voice_ = Audio::GetInstance()->PlayWave(G_Handle_, true);
+			Game* newScene = new Game();
+			newScene->Initialize();
+
+			currentScene = newScene;
 		}
+
 		break;
 
 	case Scene::kGame:
 
-		
-		if (game->IsFinishedGAME()) 
+		if (static_cast<Game*>(currentScene)->IsFinishedGAME())
 		{
+			delete currentScene;
+			currentScene = nullptr;
 
-			// 音声停止
-			//Audio::GetInstance()->StopWave(G_Voice_);
-
-			// シーンの変更
 			scene = Scene::kOver;
 
-			// 旧シーンの解放
-			delete game;
-			game = nullptr;
-			// クリアオーバーの生成
-			over = new Over;
-			// クリアオーバーの初期化
-			over->Initialize();
+			Over* newScene = new Over();
+			newScene->Initialize();
 
-			// ゲームオーバーシーンの音楽を再生
-			// O_Voice_ = Audio::GetInstance()->PlayWave(O_Handle_, true);
+			currentScene = newScene;
+		} else if (static_cast<Game*>(currentScene)->IsFinishedGAME2()) {
+			int score = static_cast<Game*>(currentScene)->GetScore();
 
-		} else if (game->IsFinishedGAME2())
-		{
-			// 音声停止
-			//Audio::GetInstance()->StopWave(G_Voice_);
-			
-			
-			// シーンの変更
+			delete currentScene;
+			currentScene = nullptr;
+
 			scene = Scene::kClear;
 
-			
-			// クリアシーンの生成
-			clear = new Clear;
-			// クリアシーンの初期化
-			clear->Initialize();
-			
-			//ゲームで獲得したスコアを引き継ぐ
-			clear->SetScore(game->GetScore());
-			
-			// 旧シーンの解放
-			delete game;
-			game = nullptr;
-			
-			
-			
-			// ゲームクリアシーンの音楽を再生
-			// C_Voice_ = Audio::GetInstance()->PlayWave(C_Handle_, true);
-		} else if (game->IsFinishedGAME3())
-		{
-			// 音声停止
-			//Audio::GetInstance()->StopWave(G_Voice_);
+			Clear* newScene = new Clear();
+			newScene->Initialize();
+			newScene->SetScore(score);
 
-			
-			// シーンの変更
+			currentScene = newScene;
+		} else if (static_cast<Game*>(currentScene)->IsFinishedGAME3()) {
+			delete currentScene;
+			currentScene = nullptr;
+
 			scene = Scene::kTitle;
 
-			// 旧シーンの解放
-			delete game;
-			game = nullptr;
+			Title* newScene = new Title();
+			newScene->Initialize();
 
-			// タイトルシーンの生成
-			title = new Title;
-			// タイトルシーンの初期化
-			title->Initialize();
-
-			// タイトルの音楽を再生
-			//T_Voice_ = Audio::GetInstance()->PlayWave(T_Handle_, true);
+			currentScene = newScene;
 		}
 
 		break;
-		
-		
+
 	case Scene::kClear:
 
-		if (clear->IsFinishedC())
+		if (static_cast<Clear*>(currentScene)->IsFinishedC())
 		{
-			// 音声停止
-			// Audio::GetInstance()->StopWave(C_Voice_);
+			delete currentScene;
+			currentScene = nullptr;
 
-			// シーンの変更
 			scene = Scene::kTitle;
 
-			// 旧シーンの解放
-			delete clear;
-			clear = nullptr;
+			Title* newScene = new Title();
+			newScene->Initialize();
 
-			// タイトルシーンの生成
-			title = new Title;
-			// タイトルシーンの初期化
-			title->Initialize();
+			currentScene = newScene;
+		} else if (static_cast<Clear*>(currentScene)->IsFinishedC2()) {
+			delete currentScene;
+			currentScene = nullptr;
 
-			// タイトルの音楽を再生
-			//T_Voice_ = Audio::GetInstance()->PlayWave(T_Handle_, true);
-		} else if (clear->IsFinishedC2())
-		{
-			// シーンの変更
 			scene = Scene::kGame;
 
-			// 旧シーンの解放
-			delete clear;
-			clear = nullptr;
+			Game* newScene = new Game();
+			newScene->Initialize();
 
-			// 新シーンの生成と初期化
-			game = new Game();
-			game->Initialize();
-
-			// ゲームシーンの音楽を再生
-			//G_Voice_ = Audio::GetInstance()->PlayWave(G_Handle_, true);
+			currentScene = newScene;
 		}
 
 		break;
 
 	case Scene::kOver:
 
-		if (over->IsFinishedO())
+		if (static_cast<Over*>(currentScene)->IsFinishedO())
 		{
+			delete currentScene;
+			currentScene = nullptr;
 
-			// 音声停止
-			// Audio::GetInstance()->StopWave(O_Voice_);
-
-			// シーンの変更
 			scene = Scene::kTitle;
 
-			// 旧シーンの解放
-			delete over;
-			over = nullptr;
+			Title* newScene = new Title();
+			newScene->Initialize();
 
-			// タイトルシーンの生成
-			title = new Title;
-			// タイトルシーンの初期化
-			title->Initialize();
+			currentScene = newScene;
+		} else if (static_cast<Over*>(currentScene)->IsFinishedO2()) {
+			delete currentScene;
+			currentScene = nullptr;
 
-			// タイトルの音楽を再生
-			//T_Voice_ = Audio::GetInstance()->PlayWave(T_Handle_, true);
-		} else if (over->IsFinishedO2())
-		{
-			// シーンの変更
 			scene = Scene::kGame;
 
-			// 旧シーンの解放
-			delete over;
-			over = nullptr;
+			Game* newScene = new Game();
+			newScene->Initialize();
 
-			// 新シーンの生成と初期化
-			game = new Game();
-			game->Initialize();
-
-			// ゲームシーンの音楽を再生
-			//G_Voice_ = Audio::GetInstance()->PlayWave(G_Handle_, true);
+			currentScene = newScene;
 		}
+
 		break;
 	}
 }
 
 void DrawScene() 
 {
-
-	switch (scene)
+	if (currentScene)
 	{
-	case Scene::kTitle:
-		title->Draw();
-		break;
-
-	case Scene::kTutorial:
-		tutorial->Draw();
-		break;
-
-	case Scene::kGame:
-		game->Draw();
-		break;
-		
-	case Scene::kClear:
-		clear->Draw();
-		break;
-
-	case Scene::kOver:
-		over->Draw();
-		break;
-		
+		currentScene->Draw();
 	}
 }

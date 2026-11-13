@@ -2,7 +2,8 @@
 #include "Fade.h"
 #include "KamataEngine.h"
 #include"ClearNumber.h"
-class Clear
+#include "BaseScene.h"
+class Clear : public BaseScene
 {
 public:
 	
@@ -16,8 +17,8 @@ public:
 	bool IsFinishedC2() const { return finishedC_2; }
 
 	void Initialize();
-	void Update();
-	void Draw();
+	void Update() override;
+	void Draw() override;
 
 	// デストラクタ
 	~Clear();

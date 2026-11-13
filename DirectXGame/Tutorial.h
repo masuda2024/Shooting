@@ -1,7 +1,8 @@
 #pragma once
 #include"kamataEngine.h"
 #include "Fade.h"
-class Tutorial
+#include "BaseScene.h"
+class Tutorial : public BaseScene
 {
 public:
 	enum class Phase
@@ -15,8 +16,8 @@ public:
 	bool IsFinishedTU() const { return finishedTU_; }
 
 	void Initialize();
-	void Update();
-	void Draw();
+	void Update() override;
+	void Draw() override;
 
 	// デストラクタ
 	~Tutorial();

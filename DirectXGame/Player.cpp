@@ -184,7 +184,7 @@ void Player::Update()
 
 
 	#pragma region 弾
-	/*
+	
 	for (P_Bullet* p_bullet : p_bullets_)
 	{
 		p_bullet->Update();
@@ -218,32 +218,10 @@ void Player::Update()
 		}
 		return false;
 	});
-*/
 
 
 
-	for (Bullet* bullet : bullets_) 
-	{
-		bullet->Update();
-	}
-	// 弾の更新と消滅処理
-	for (auto it = bullets_.begin(); it != bullets_.end();)
-	{
-		Bullet* bullet = *it;
 
-		// 弾の更新
-		bullet->Update();
-
-		// 消滅判定
-		if (bullet->IsDead())
-		{
-			delete bullet;
-			it = bullets_.erase(it);
-		} else 
-		{
-			++it;
-		}
-	}
 	#pragma endregion
 
 	#pragma region カーソルをマウス座標に合わせる
@@ -312,7 +290,7 @@ void Player::Draw()
 {
 	model_->Draw(worldTransform_, *camera_);
 	modelCursor_->Draw(worldTransform3DReticle_, *camera_);
-	/*
+	
 	for (P_Bullet* p_bullet : p_bullets_)
 	{
 		p_bullet->Draw(*camera_);
@@ -320,20 +298,19 @@ void Player::Draw()
 	for (AllRound* allRound : allRounds_)
 	{
 		allRound->Draw(*camera_);
-	}*/
-
-	for (Bullet* bullet : bullets_) 
-	{
-		bullet->Draw(*camera_);
 	}
 }
 
 Player::~Player() 
 {
 	// 弾の解放
-	for (Bullet* bullet : bullets_) 
+	for (P_Bullet* p_bullet : p_bullets_)
 	{
-		delete bullet;
+		delete p_bullet;
+	}
+	for (AllRound* allRound : allRounds_)
+	{
+		delete allRound;
 	}
 	delete modelCursor_;
 }
@@ -354,10 +331,10 @@ void Player::Attack()
 		velocity = Normalize(velocity) * kBulletSpeed;
 
 		// 弾生成
-		Bullet* newBullet = new P_Bullet();
-		static_cast<P_Bullet*>(newBullet)->Initialize(model_, worldTransform_.translation_, velocity);
+		P_Bullet* newBullet = new P_Bullet();
+		newBullet->Initialize(model_, worldTransform_.translation_, velocity);
 
-		bullets_.push_back(newBullet);
+		p_bullets_.push_back(newBullet);
 	}
 }
 
@@ -373,10 +350,10 @@ void Player::Attack2()
 	if (fireTimer_ <= 0)
 	{
 		// 弾を発射
-		Bullet* newBullet = new AllRound();
-		static_cast<AllRound*>(newBullet)->Initialize(model_, worldTransform_.translation_);
+		AllRound* newAllRound = new AllRound();
+		newAllRound->Initialize(model_, worldTransform_.translation_);
 
-		bullets_.push_back(newBullet);
+		allRounds_.push_back(newAllRound);
 	
 
 

@@ -1,7 +1,8 @@
 #pragma once
 #include"kamataEngine.h"
 #include "Fade.h"
-class Title
+#include "BaseScene.h"
+class Title : public BaseScene
 {
 public:
 	enum class Phase 
@@ -12,21 +13,19 @@ public:
 		kFadeOut, // フェードアウト
 	};
 
+	
+	void Initialize();
+	void Update() override;
+	void Draw() override;
+	// デストラクタ
+	~Title();
+	
 	// 終了フラグ
 	bool IsFinishedT() const { return finishedTitle_; }
 	
 	//ゲーム終了フラグ	
 	bool IsFinishedGame() const { return finishedGame_; }
 
-
-	void Initialize();
-	void Update();
-	void Draw();
-
-	// デストラクタ
-	~Title();
-	
-	
 
 private:
 	// カメラ
