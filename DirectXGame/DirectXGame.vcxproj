@@ -164,6 +164,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AllRound.cpp" />
+    <ClCompile Include="BaseBar.cpp" />
     <ClCompile Include="Clear.cpp" />
     <ClCompile Include="ClearNumber.cpp" />
     <ClCompile Include="DrawNumber.cpp" />
@@ -283,6 +284,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllRound.h" />
+    <ClInclude Include="BaseBar.h" />
     <ClInclude Include="BaseScene.h" />
     <ClInclude Include="Clear.h" />
     <ClInclude Include="ClearNumber.h" />

@@ -1,25 +1,8 @@
 #pragma once
 #include "KamataEngine.h"
-
-class GraphBar
+#include "BaseBar.h"
+class GraphBar : public BaseBar
 {
 public:
-	// デストラクタ
-	~GraphBar();
-
-	// 初期化
-	void Initialize(uint32_t textureHandle);
-
-	// 更新
-	void Update(uint32_t hp);
-
-	// 描画
-	void Draw();
-
-private:
-	// テクスチャー
-	uint32_t textureHandle_;
-	// スプライト
-	KamataEngine::Sprite* sprite_ = nullptr;
-	KamataEngine::Sprite* sprite2_ = nullptr;
+	void Initialize(uint32_t textureHandle) override;
 };
