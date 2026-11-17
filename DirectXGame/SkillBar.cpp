@@ -2,7 +2,6 @@
 
 using namespace KamataEngine;
 
-
 // 初期化
 void SkillBar::Initialize(uint32_t textureHandle)
 {

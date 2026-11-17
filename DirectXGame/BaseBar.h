@@ -4,16 +4,16 @@
 class BaseBar
 {
 public:
-	virtual ~BaseBar() = default;
+	virtual ~BaseBar();
 
 	// 初期化
 	virtual void Initialize(uint32_t textureHandle) = 0;
 
 	// 更新
-	virtual void Update(uint32_t hp) = 0;
+	virtual void Update(uint32_t hp);
 
 	// 描画
-	virtual void Draw() = 0;
+	virtual void Draw();
 
 protected:
 	// テクスチャ
