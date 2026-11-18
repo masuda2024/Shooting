@@ -2,7 +2,7 @@
 #include "KamataEngine.h"
 
 #include <numbers>
-#include "MyMath.h"
+#include "../Base/MyMath.h"
 
 class P_Bullet;
 class AllRound;

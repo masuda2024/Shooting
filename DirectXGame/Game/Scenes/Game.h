@@ -2,27 +2,27 @@
 #include "KamataEngine.h"
 
 
-#include "MyMath.h"
+#include "../Base/MyMath.h"
 #include <list>
-#include "Fade.h"
+#include "../Base/Fade.h"
 
 
 
-#include "Effect.h"
+#include "../Entity/Effect.h"
 
 
 
-#include "Stage.h"
+#include "../Entity/Stage.h"
 
-#include"Player.h"
-#include "GraphBar.h"
-#include "SkillBar.h"
-
-
-#include "Enemy.h"
+#include "../Player/Player.h"
+#include "../UI/GraphBar.h"
+#include "../UI/SkillBar.h"
 
 
-#include"DrawNumber.h"
+#include "../Enemy/Enemy.h"
+
+
+#include"../UI/DrawNumber.h"
 
 #include "BaseScene.h"
 

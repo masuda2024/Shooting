@@ -1,8 +1,11 @@
 #pragma once
-#include "Fade.h"
+#include "../Base/Fade.h"
 #include "KamataEngine.h"
-#include"ClearNumber.h"
+#include "../UI/ClearNumber.h"
 #include "BaseScene.h"
+#include <cassert>
+#include "../Base/MyMath.h"
+#include "math.h"
 class Clear : public BaseScene
 {
 public:

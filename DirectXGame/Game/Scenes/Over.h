@@ -1,7 +1,10 @@
 #pragma once
-#include "Fade.h"
+#include "../Base/Fade.h"
 #include "KamataEngine.h"
 #include "BaseScene.h"
+#include <cassert>
+#include "../Base/MyMath.h"
+#include "math.h"
 class Over : public BaseScene
 {
 public:

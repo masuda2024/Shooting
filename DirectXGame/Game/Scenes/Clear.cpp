@@ -1,7 +1,5 @@
 #include "Clear.h"
-#include <cassert>
-#include "MyMath.h"
-#include "math.h"
+
 
 using namespace KamataEngine;
 

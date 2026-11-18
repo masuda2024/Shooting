@@ -1,6 +1,6 @@
 #pragma once
 #include"kamataEngine.h"
-#include "Fade.h"
+#include "../Base/Fade.h"
 #include "BaseScene.h"
 class Title : public BaseScene
 {

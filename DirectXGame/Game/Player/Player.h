@@ -5,6 +5,9 @@
 #include <numbers>
 #include <list>
 
+#include "PlayerNormalState.h"
+#include "PlayerAllRoundState.h"
+#include <memory>
 
 class Player 
 {
@@ -14,6 +17,9 @@ public:
 
 	// 更新
 	void Update();
+
+	// 移動
+	void Move();
 
 	// 描画
 	void Draw();
@@ -82,4 +88,10 @@ private:
 
 	// 発射間隔
 	static const int kFireInterval = 30;
+
+	// 現在の状態
+	std::unique_ptr<PlayerState> state_;
+
+	// 状態変更
+	void ChangeState(std::unique_ptr<PlayerState> newState);
 };

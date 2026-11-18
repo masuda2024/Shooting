@@ -163,25 +163,27 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AllRound.cpp" />
-    <ClCompile Include="BaseBar.cpp" />
-    <ClCompile Include="Clear.cpp" />
-    <ClCompile Include="ClearNumber.cpp" />
-    <ClCompile Include="DrawNumber.cpp" />
-    <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="Fade.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Effect.cpp" />
-    <ClCompile Include="GraphBar.cpp" />
+    <ClCompile Include="Game\Player\AllRound.cpp" />
+    <ClCompile Include="Game\UI\BaseBar.cpp" />
+    <ClCompile Include="Game\Scenes\Clear.cpp" />
+    <ClCompile Include="Game\UI\ClearNumber.cpp" />
+    <ClCompile Include="Game\UI\DrawNumber.cpp" />
+    <ClCompile Include="Game\Enemy\Enemy.cpp" />
+    <ClCompile Include="Game\Base\Fade.cpp" />
+    <ClCompile Include="Game\Scenes\Game.cpp" />
+    <ClCompile Include="Game\Entity\Effect.cpp" />
+    <ClCompile Include="Game\UI\GraphBar.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MyMath.cpp" />
-    <ClCompile Include="Over.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="P_Bullet.cpp" />
-    <ClCompile Include="SkillBar.cpp" />
-    <ClCompile Include="Stage.cpp" />
-    <ClCompile Include="Title.cpp" />
-    <ClCompile Include="Tutorial.cpp" />
+    <ClCompile Include="Game\Base\MyMath.cpp" />
+    <ClCompile Include="Game\Scenes\Over.cpp" />
+    <ClCompile Include="Game\Player\Player.cpp" />
+    <ClCompile Include="Game\Player\P_Bullet.cpp" />
+    <ClCompile Include="Game\UI\SkillBar.cpp" />
+    <ClCompile Include="Game\Entity\Stage.cpp" />
+    <ClCompile Include="Game\Scenes\Title.cpp" />
+    <ClCompile Include="Game\Scenes\Tutorial.cpp" />
+    <ClCompile Include="Game\Player\PlayerNormalState.cpp" />
+    <ClCompile Include="Game\Player\PlayerAllRoundState.cpp" />
     <ClCompile Include="WorldTransformEx.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -283,25 +285,28 @@
     <None Include="Resources\shaders\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AllRound.h" />
-    <ClInclude Include="BaseBar.h" />
-    <ClInclude Include="BaseScene.h" />
-    <ClInclude Include="Clear.h" />
-    <ClInclude Include="ClearNumber.h" />
-    <ClInclude Include="DrawNumber.h" />
-    <ClInclude Include="Enemy.h" />
-    <ClInclude Include="Fade.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Effect.h" />
-    <ClInclude Include="GraphBar.h" />
-    <ClInclude Include="MyMath.h" />
-    <ClInclude Include="Over.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="P_Bullet.h" />
-    <ClInclude Include="SkillBar.h" />
-    <ClInclude Include="Stage.h" />
-    <ClInclude Include="Title.h" />
-    <ClInclude Include="Tutorial.h" />
+    <ClInclude Include="Game\Player\AllRound.h" />
+    <ClInclude Include="Game\UI\BaseBar.h" />
+    <ClInclude Include="Game\Scenes\BaseScene.h" />
+    <ClInclude Include="Game\Scenes\Clear.h" />
+    <ClInclude Include="Game\UI\ClearNumber.h" />
+    <ClInclude Include="Game\UI\DrawNumber.h" />
+    <ClInclude Include="Game\Enemy\Enemy.h" />
+    <ClInclude Include="Game\Base\Fade.h" />
+    <ClInclude Include="Game\Scenes\Game.h" />
+    <ClInclude Include="Game\Entity\Effect.h" />
+    <ClInclude Include="Game\UI\GraphBar.h" />
+    <ClInclude Include="Game\Base\MyMath.h" />
+    <ClInclude Include="Game\Scenes\Over.h" />
+    <ClInclude Include="Game\Player\Player.h" />
+    <ClInclude Include="Game\Player\P_Bullet.h" />
+    <ClInclude Include="Game\UI\SkillBar.h" />
+    <ClInclude Include="Game\Entity\Stage.h" />
+    <ClInclude Include="Game\Scenes\Title.h" />
+    <ClInclude Include="Game\Scenes\Tutorial.h" />
+    <ClInclude Include="Game\Player\PlayerState.h" />
+    <ClInclude Include="Game\Player\PlayerNormalState.h" />
+    <ClInclude Include="Game\Player\PlayerAllRoundState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

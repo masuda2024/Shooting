@@ -6,12 +6,12 @@ using namespace KamataEngine;
 
 #pragma region シーン
 
-#include "Title.h"
-#include "Tutorial.h"
-#include"Game.h"
-#include "Clear.h"
-#include "Over.h"
-#include "BaseScene.h"
+#include "Game/Scenes/Title.h"
+#include "Game/Scenes/Tutorial.h"
+#include "Game/Scenes/Game.h"
+#include "Game/Scenes/Clear.h"
+#include "Game/Scenes/Over.h"
+#include "Game/Scenes/BaseScene.h"
 
 
 

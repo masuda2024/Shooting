@@ -1,6 +1,6 @@
 #pragma once
 #include"KamataEngine.h"
-#include"MyMath.h"
+#include"../Base/MyMath.h"
 #include<array>
 #define _USE_MATH_DEFINES
 #include<math.h>

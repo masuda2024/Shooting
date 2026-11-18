@@ -120,19 +120,25 @@ void Player::Initialize(KamataEngine::Model* model, KamataEngine::Camera* camera
 {
 	model_ = model;
 	camera_ = camera;
+
 	worldTransform_.Initialize();
+
 	worldTransform_.rotation_.y = std::numbers::pi_v<float> / 2.0f;
+
 	worldTransform_.translation_ = position;
 
-	// カーソル
+	input_ = KamataEngine::Input::GetInstance();
+
 	modelCursor_ = Model::CreateFromOBJ("Cursor", true);
-	// 3Dレティクルのワールド変換を初期化
+
 	worldTransform3DReticle_.Initialize();
+
 	worldTransform3DReticle_.translation_ = position;
+
 	worldTransform3DReticle_.rotation_.y = std::numbers::pi_v<float> / 2.0f;
 
-	// シングルトンインスタンスを取得する
-	input_ = KamataEngine::Input::GetInstance();
+	// 初期状態を通常状態にする
+	ChangeState(std::make_unique<PlayerNormalState>());
 }
 
 
@@ -140,42 +146,14 @@ void Player::Initialize(KamataEngine::Model* model, KamataEngine::Camera* camera
 // 更新
 void Player::Update() 
 {
-	#pragma region プレイヤーの移動
 
-	// キャラクターの移動ベクトル
-	Vector3 move = {0, 0, 0};
-	// キャラクターの移動速さ
-	const float kCharacterSpeed = 0.2f;
-	// 押した方向で移動ベクトルを変更
-	if (input_->PushKey(DIK_A))
+	 // 現在の状態を更新
+	if (state_)
 	{
-		move.x -= kCharacterSpeed;
-	} else if (input_->PushKey(DIK_D)) 
-	{
-		move.x += kCharacterSpeed;
-	}
-	if (input_->PushKey(DIK_W)) 
-	{
-		move.y += kCharacterSpeed;
-	} else if (input_->PushKey(DIK_S))
-	{
-		move.y -= kCharacterSpeed;
+		state_->Update(this);
 	}
 
-	// 座標移動(ベクトルの加算)
-	worldTransform_.translation_ += move;
 
-	// 移動限界座標
-	const float kMoveLimitX = 30.0f;
-	const float kMoveLimitY = 20.0f;
-
-	// 範囲を超えない処理
-	worldTransform_.translation_.x = max(worldTransform_.translation_.x, -kMoveLimitX);
-	worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);
-	worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
-	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
-
-	#pragma endregion
 
 	Attack();
 	
@@ -218,9 +196,6 @@ void Player::Update()
 		}
 		return false;
 	});
-
-
-
 
 	#pragma endregion
 
@@ -285,6 +260,43 @@ void Player::Update()
 	worldTransform_.UpdateMatrix();
 }
 
+// 移動
+void Player::Move()
+{
+	// キャラクターの移動ベクトル
+	Vector3 move = {0, 0, 0};
+	// キャラクターの移動速さ
+	const float kCharacterSpeed = 0.2f;
+	// 押した方向で移動ベクトルを変更
+	if (input_->PushKey(DIK_A))
+	{
+		move.x -= kCharacterSpeed;
+	} else if (input_->PushKey(DIK_D)) 
+	{
+		move.x += kCharacterSpeed;
+	}
+	if (input_->PushKey(DIK_W)) 
+	{
+		move.y += kCharacterSpeed;
+	} else if (input_->PushKey(DIK_S))
+	{
+		move.y -= kCharacterSpeed;
+	}
+
+	// 座標移動(ベクトルの加算)
+	worldTransform_.translation_ += move;
+
+	// 移動限界座標
+	const float kMoveLimitX = 30.0f;
+	const float kMoveLimitY = 20.0f;
+
+	// 範囲を超えない処理
+	worldTransform_.translation_.x = max(worldTransform_.translation_.x, -kMoveLimitX);
+	worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);
+	worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
+	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
+}
+
 // 描画
 void Player::Draw()
 {
@@ -320,7 +332,6 @@ void Player::Attack()
 {
 	if (input_->IsTriggerMouse(0))
 	{
-
 		const float kBulletSpeed = 1.0f;
 
 		Vector3 velocity(kBulletSpeed, 0, 0);
@@ -341,9 +352,6 @@ void Player::Attack()
 
 void Player::Attack2()
 { 
-	
-	
-
 	// 発射タイマーカウントダウン
 	fireTimer_--;
 	// 指定時間に達した
@@ -354,16 +362,20 @@ void Player::Attack2()
 		newAllRound->Initialize(model_, worldTransform_.translation_);
 
 		allRounds_.push_back(newAllRound);
-	
-
 
 		// 発射タイマーを初期化
 		fireTimer_ = kFireInterval;
 	}
+}
 
+void Player::ChangeState(std::unique_ptr<PlayerState> newState)
+{
+	state_ = std::move(newState);
 
-
-	
+	if (state_)
+	{ 
+		state_->Initialize(this);
+	}
 }
 
 

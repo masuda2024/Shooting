@@ -16,67 +16,91 @@
     <Filter Include="シェーダー ファイル">
       <UniqueIdentifier>{718c7f4c-fc51-40ad-a221-b9456a7a1a3c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Player">
+      <UniqueIdentifier>{cd7c587f-97ec-4bdf-be06-6adfc322aef0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Enemy">
+      <UniqueIdentifier>{b7db0b04-d69e-4b80-a925-44b43df2ef71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scenes">
+      <UniqueIdentifier>{ea7e0dfb-50ed-4685-b897-ef2bc6895a5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\UI">
+      <UniqueIdentifier>{1c09a429-43d9-47ea-b778-e5e3c3626347}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Base">
+      <UniqueIdentifier>{ac81f1fa-6b91-45db-9c3b-d38f8b6b1d19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Entity">
+      <UniqueIdentifier>{8f29ed28-ca8d-4752-9bbf-d580fd20b82b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="MyMath.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Effect.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="WorldTransformEx.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Fade.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Game\Player\AllRound.cpp">
+      <Filter>ソース ファイル\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Title.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Game\Player\P_Bullet.cpp">
+      <Filter>ソース ファイル\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Tutorial.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Game\Player\Player.cpp">
+      <Filter>ソース ファイル\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Clear.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Game\Scenes\Clear.cpp">
+      <Filter>ソース ファイル\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Over.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Game\UI\BaseBar.cpp">
+      <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Stage.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Game\UI\ClearNumber.cpp">
+      <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Game\UI\DrawNumber.cpp">
+      <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
-    <ClCompile Include="GraphBar.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Game\UI\GraphBar.cpp">
+      <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
-    <ClCompile Include="DrawNumber.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Game\Scenes\Over.cpp">
+      <Filter>ソース ファイル\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="P_Bullet.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Game\Scenes\Game.cpp">
+      <Filter>ソース ファイル\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Game\Scenes\Title.cpp">
+      <Filter>ソース ファイル\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="AllRound.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Game\Scenes\Tutorial.cpp">
+      <Filter>ソース ファイル\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="ClearNumber.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Game\Base\Fade.cpp">
+      <Filter>ソース ファイル\Base</Filter>
     </ClCompile>
-    <ClCompile Include="SkillBar.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Game\Base\MyMath.cpp">
+      <Filter>ソース ファイル\Base</Filter>
     </ClCompile>
-    <ClCompile Include="BaseBar.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Game\Enemy\Enemy.cpp">
+      <Filter>ソース ファイル\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI\SkillBar.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Entity\Effect.cpp">
+      <Filter>ソース ファイル\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Entity\Stage.cpp">
+      <Filter>ソース ファイル\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Player\PlayerNormalState.cpp">
+      <Filter>ソース ファイル\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Player\PlayerAllRoundState.cpp">
+      <Filter>ソース ファイル\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -130,61 +154,70 @@
     <None Include="ReadMe.md" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h">
+    <ClInclude Include="Game\Scenes\Game.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="MyMath.h">
+    <ClInclude Include="Game\Base\MyMath.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Effect.h">
+    <ClInclude Include="Game\Entity\Effect.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Fade.h">
+    <ClInclude Include="Game\Base\Fade.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Title.h">
+    <ClInclude Include="Game\Scenes\Title.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Tutorial.h">
+    <ClInclude Include="Game\Scenes\Tutorial.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Clear.h">
+    <ClInclude Include="Game\Scenes\Clear.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Over.h">
+    <ClInclude Include="Game\Scenes\Over.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Stage.h">
+    <ClInclude Include="Game\Entity\Stage.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="Game\Player\Player.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="GraphBar.h">
+    <ClInclude Include="Game\UI\GraphBar.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="DrawNumber.h">
+    <ClInclude Include="Game\UI\DrawNumber.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="P_Bullet.h">
+    <ClInclude Include="Game\Player\P_Bullet.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
+    <ClInclude Include="Game\Enemy\Enemy.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="AllRound.h">
+    <ClInclude Include="Game\Player\AllRound.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="ClearNumber.h">
+    <ClInclude Include="Game\UI\ClearNumber.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="SkillBar.h">
+    <ClInclude Include="Game\UI\SkillBar.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="BaseScene.h">
+    <ClInclude Include="Game\Scenes\BaseScene.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="BaseBar.h">
+    <ClInclude Include="Game\UI\BaseBar.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Player\PlayerState.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Player\PlayerNormalState.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Player\PlayerAllRoundState.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
