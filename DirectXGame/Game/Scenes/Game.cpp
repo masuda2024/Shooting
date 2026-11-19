@@ -230,24 +230,31 @@ void Game::Update()
 
 			#pragma region Playerのスキル攻撃
 			skillBar_->Update(static_cast<uint32_t>(skill_));
-			if (skill_ >= MaxSkill_)
+			// スキルゲージが最大になったら発動要求
+			if (skill_ >= MaxSkill_ && !skillActive_) 
 			{
+			    player_->RequestAllRound();
+
+				// ゲージを消費状態にする
 				skill_ = MaxSkill_;
+
 				c_skillUp = false;
 				skillActive_ = true;
 			}
 
-			if (skillActive_)
+			// ゲージの減少
+			if (skillActive_) 
 			{
-				player_->Attack2();
 				skill_ -= 5.0f;
+
+				if (skill_ <= 0.0f)
+				{
+					skill_ = 0.0f;
+					skillActive_ = false;
+					c_skillUp = true;
+				}
 			}
 
-			if (skill_ == 0)
-			{
-				skillActive_ = false;
-				c_skillUp = true;
-			}
 			#pragma endregion
 
 		#pragma endregion

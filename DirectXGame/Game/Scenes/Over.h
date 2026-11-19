@@ -68,5 +68,4 @@ private:
 
 	bool finishedO_ = false;
 	bool finishedO_2 = false;
-	
 };

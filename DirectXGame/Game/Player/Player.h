@@ -36,15 +36,19 @@ public:
 	// 範囲攻撃
 	void Attack2();
 
+	// 状態変更
+	void ChangeState(std::unique_ptr<PlayerState> newState);
+
+	// スキル発動要求
+	void RequestAllRound();
+	// 範囲攻撃の発動要求を取得して消費
+	bool ConsumeAllRoundRequest();
+
 	// 弾のリストを取得（読み取り専用）
 	const std::list<P_Bullet*>& GetBullets() const { return p_bullets_; }
 
 	// 範囲攻撃のリストを取得（読み取り専用）
 	const std::list<AllRound*>& GetRound() const { return allRounds_; }
-
-	
-
-
 
 	// 当たり判定サイズ
 	static inline const float kWidth = 1.5f;
@@ -72,7 +76,6 @@ private:
 	// テクスチャ
 	uint32_t textureHandle_ = 0;
 
-
 	#pragma region 弾
 	// 通常弾
 	std::list<P_Bullet*> p_bullets_;
@@ -81,7 +84,6 @@ private:
 	std::list<AllRound*> allRounds_;
 
 	#pragma endregion
-
 
 	// 発射タイマー
 	int32_t fireTimer_ = 0;
@@ -92,6 +94,6 @@ private:
 	// 現在の状態
 	std::unique_ptr<PlayerState> state_;
 
-	// 状態変更
-	void ChangeState(std::unique_ptr<PlayerState> newState);
+	// 範囲攻撃の発動要求フラグ
+	bool allRoundRequested_ = false;
 };

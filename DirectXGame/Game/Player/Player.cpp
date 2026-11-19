@@ -146,19 +146,11 @@ void Player::Initialize(KamataEngine::Model* model, KamataEngine::Camera* camera
 // 更新
 void Player::Update() 
 {
-
 	 // 現在の状態を更新
 	if (state_)
 	{
 		state_->Update(this);
 	}
-
-
-
-	Attack();
-	
-		
-    
 
 
 	#pragma region 弾
@@ -377,6 +369,23 @@ void Player::ChangeState(std::unique_ptr<PlayerState> newState)
 		state_->Initialize(this);
 	}
 }
+// 範囲攻撃の発動要求
+void Player::RequestAllRound() 
+{ 
+	allRoundRequested_ = true; 
+}
+// 発動要求を取得してリセット
+bool Player::ConsumeAllRoundRequest()
+{
+	if (allRoundRequested_)
+	{
+		allRoundRequested_ = false;
+		return true;
+	}
+
+	return false;
+}
+
 
 
 
