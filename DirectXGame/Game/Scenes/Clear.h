@@ -19,7 +19,7 @@ public:
 	
 	bool IsFinishedC2() const { return finishedC_2; }
 
-	void Initialize();
+	void Initialize() override;
 	void Update() override;
 	void Draw() override;
 

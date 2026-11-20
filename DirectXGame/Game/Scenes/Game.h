@@ -30,7 +30,7 @@ class Game : public BaseScene
 {
 public:
 
-	void Initialize();
+	void Initialize() override;
 	void Update() override;
 	void Draw() override;
 	~Game();

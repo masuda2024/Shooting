@@ -4,6 +4,9 @@ class BaseScene
 {
 public:
 	virtual ~BaseScene() = default;
+	
+	// シーンの初期化
+	virtual void Initialize() = 0;
 
 	// シーンの更新
 	virtual void Update() = 0;

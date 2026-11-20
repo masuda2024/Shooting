@@ -15,7 +15,7 @@ public:
 	
 	bool IsFinishedO2() const { return finishedO_2; }
 
-	void Initialize();
+	void Initialize() override;
 	void Update() override;
 	void Draw() override;
 

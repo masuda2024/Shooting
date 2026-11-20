@@ -15,7 +15,7 @@ public:
 	// getter
 	bool IsFinishedTU() const { return finishedTU_; }
 
-	void Initialize();
+	void Initialize() override;
 	void Update() override;
 	void Draw() override;
 
