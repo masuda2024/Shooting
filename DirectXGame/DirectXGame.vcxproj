@@ -184,6 +184,7 @@
     <ClCompile Include="Game\Scenes\Tutorial.cpp" />
     <ClCompile Include="Game\Player\PlayerNormalState.cpp" />
     <ClCompile Include="Game\Player\PlayerAllRoundState.cpp" />
+    <ClCompile Include="Game\Managers\SceneManager.cpp" />
     <ClCompile Include="WorldTransformEx.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -307,6 +308,7 @@
     <ClInclude Include="Game\Player\PlayerState.h" />
     <ClInclude Include="Game\Player\PlayerNormalState.h" />
     <ClInclude Include="Game\Player\PlayerAllRoundState.h" />
+    <ClInclude Include="Game\Managers\SceneManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

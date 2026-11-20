@@ -34,6 +34,9 @@
     <Filter Include="ソース ファイル\Entity">
       <UniqueIdentifier>{8f29ed28-ca8d-4752-9bbf-d580fd20b82b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Managers">
+      <UniqueIdentifier>{264c07d3-5316-45c5-992b-1bf0200f05dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -101,6 +104,9 @@
     </ClCompile>
     <ClCompile Include="Game\Player\PlayerAllRoundState.cpp">
       <Filter>ソース ファイル\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Managers\SceneManager.cpp">
+      <Filter>ソース ファイル\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -218,6 +224,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Game\Player\PlayerAllRoundState.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Managers\SceneManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

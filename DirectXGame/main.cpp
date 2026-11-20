@@ -1,10 +1,12 @@
 #include <Windows.h>
+#include <memory>
+
 #include "KamataEngine.h"
 using namespace KamataEngine;
 
 
 
-#pragma region シーン
+
 
 #include "Game/Scenes/Title.h"
 #include "Game/Scenes/Tutorial.h"
@@ -13,7 +15,7 @@ using namespace KamataEngine;
 #include "Game/Scenes/Over.h"
 #include "Game/Scenes/BaseScene.h"
 
-
+#pragma region シーン
 
 enum class Scene 
 {
@@ -25,10 +27,10 @@ enum class Scene
 	kOver,
 };
 Scene scene = Scene::kUnknown;
-BaseScene* currentScene = nullptr;
+// 現在のシーン
+std::unique_ptr<BaseScene> currentScene = nullptr;
 
-
-
+void SetScene(Scene nextScene, uint32_t score = 0);
 void ChangeScene();
 void UpdateScene();
 void DrawScene();
@@ -47,16 +49,9 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
 	// DirectXCommonインスタンスを取得する
 	DirectXCommon* dxCommon = DirectXCommon::GetInstance();
 
-	#pragma region シーンの初期化
-	// 最初のシーンの初期化
-	scene = Scene::kTitle;
-
-	Title* newScene = new Title();
-	newScene->Initialize();
-
-	currentScene = newScene;
-	#pragma endregion
-
+	// シーンの初期化
+	// 最初のシーンを設定
+	SetScene(Scene::kTitle);
 
 
 	// メインループ
@@ -89,8 +84,8 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
 		#pragma endregion
 
 
-		//ゲームを終了してウインドウを閉じる
-		if (scene == Scene::kTitle && static_cast<Title*>(currentScene)->IsFinishedGame())
+		// ゲームを終了してウインドウを閉じる
+		if (scene == Scene::kTitle && static_cast<Title*>(currentScene.get())->IsFinishedGame())
 		{
 			break;
 		}
@@ -98,13 +93,8 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
 
 
 
-	#pragma region 解放
-
 	// シーンの解放
-	delete currentScene;
-	currentScene = nullptr;
-
-	#pragma endregion
+	currentScene.reset();
 
 	
 	// エンジンの終了処理
@@ -123,133 +113,113 @@ void UpdateScene()
 }
 
 
+void SetScene(Scene nextScene, uint32_t score)
+{
+	std::unique_ptr<BaseScene> newScene;
+
+	switch (nextScene) 
+	{
+	case Scene::kTitle:
+	{
+		auto title = std::make_unique<Title>();
+		title->Initialize();
+		newScene = std::move(title);
+		break;
+	}
+
+	case Scene::kTutorial: 
+	{
+		auto tutorial = std::make_unique<Tutorial>();
+		tutorial->Initialize();
+		newScene = std::move(tutorial);
+		break;
+	}
+
+	case Scene::kGame: 
+	{
+		auto game = std::make_unique<Game>();
+		game->Initialize();
+		newScene = std::move(game);
+		break;
+	}
+
+	case Scene::kClear:
+	{
+		auto clear = std::make_unique<Clear>();
+		clear->Initialize();
+		clear->SetScore(score);
+		newScene = std::move(clear);
+		break;
+	}
+
+	case Scene::kOver:
+	{
+		auto over = std::make_unique<Over>();
+		over->Initialize();
+		newScene = std::move(over);
+		break;
+	}
+
+	default:
+		return;
+	}
+
+	// シーンを切り替える
+	currentScene = std::move(newScene);
+
+	scene = nextScene;
+}
+
 void ChangeScene()
 {
 	switch (scene)
 	{
 	case Scene::kTitle:
 
-		if (static_cast<Title*>(currentScene)->IsFinishedT()) 
-		{
-			delete currentScene;
-			currentScene = nullptr;
-
-			scene = Scene::kTutorial;
-
-			Tutorial* newScene = new Tutorial();
-			newScene->Initialize();
-
-			currentScene = newScene;
+		if (static_cast<Title*>(currentScene.get())->IsFinishedT()) {
+			SetScene(Scene::kTutorial);
 		}
 
 		break;
 
 	case Scene::kTutorial:
 
-		if (static_cast<Tutorial*>(currentScene)->IsFinishedTU()) {
-			delete currentScene;
-			currentScene = nullptr;
-
-			scene = Scene::kGame;
-
-			Game* newScene = new Game();
-			newScene->Initialize();
-
-			currentScene = newScene;
+		if (static_cast<Tutorial*>(currentScene.get())->IsFinishedTU()) {
+			SetScene(Scene::kGame);
 		}
 
 		break;
 
 	case Scene::kGame:
 
-		if (static_cast<Game*>(currentScene)->IsFinishedGAME())
-		{
-			delete currentScene;
-			currentScene = nullptr;
+		if (static_cast<Game*>(currentScene.get())->IsFinishedGAME()) {
+			SetScene(Scene::kOver);
+		} else if (static_cast<Game*>(currentScene.get())->IsFinishedGAME2()) {
+			uint32_t score = static_cast<Game*>(currentScene.get())->GetScore();
 
-			scene = Scene::kOver;
-
-			Over* newScene = new Over();
-			newScene->Initialize();
-
-			currentScene = newScene;
-		} else if (static_cast<Game*>(currentScene)->IsFinishedGAME2()) {
-			int score = static_cast<Game*>(currentScene)->GetScore();
-
-			delete currentScene;
-			currentScene = nullptr;
-
-			scene = Scene::kClear;
-
-			Clear* newScene = new Clear();
-			newScene->Initialize();
-			newScene->SetScore(score);
-
-			currentScene = newScene;
-		} else if (static_cast<Game*>(currentScene)->IsFinishedGAME3()) {
-			delete currentScene;
-			currentScene = nullptr;
-
-			scene = Scene::kTitle;
-
-			Title* newScene = new Title();
-			newScene->Initialize();
-
-			currentScene = newScene;
+			SetScene(Scene::kClear, score);
+		} else if (static_cast<Game*>(currentScene.get())->IsFinishedGAME3()) {
+			SetScene(Scene::kTitle);
 		}
 
 		break;
 
 	case Scene::kClear:
 
-		if (static_cast<Clear*>(currentScene)->IsFinishedC())
-		{
-			delete currentScene;
-			currentScene = nullptr;
-
-			scene = Scene::kTitle;
-
-			Title* newScene = new Title();
-			newScene->Initialize();
-
-			currentScene = newScene;
-		} else if (static_cast<Clear*>(currentScene)->IsFinishedC2()) {
-			delete currentScene;
-			currentScene = nullptr;
-
-			scene = Scene::kGame;
-
-			Game* newScene = new Game();
-			newScene->Initialize();
-
-			currentScene = newScene;
+		if (static_cast<Clear*>(currentScene.get())->IsFinishedC()) {
+			SetScene(Scene::kTitle);
+		} else if (static_cast<Clear*>(currentScene.get())->IsFinishedC2()) {
+			SetScene(Scene::kGame);
 		}
 
 		break;
 
 	case Scene::kOver:
 
-		if (static_cast<Over*>(currentScene)->IsFinishedO())
-		{
-			delete currentScene;
-			currentScene = nullptr;
-
-			scene = Scene::kTitle;
-
-			Title* newScene = new Title();
-			newScene->Initialize();
-
-			currentScene = newScene;
-		} else if (static_cast<Over*>(currentScene)->IsFinishedO2()) {
-			delete currentScene;
-			currentScene = nullptr;
-
-			scene = Scene::kGame;
-
-			Game* newScene = new Game();
-			newScene->Initialize();
-
-			currentScene = newScene;
+		if (static_cast<Over*>(currentScene.get())->IsFinishedO()) {
+			SetScene(Scene::kTitle);
+		} else if (static_cast<Over*>(currentScene.get())->IsFinishedO2()) {
+			SetScene(Scene::kGame);
 		}
 
 		break;
